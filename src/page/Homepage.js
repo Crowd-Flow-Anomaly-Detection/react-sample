@@ -66,7 +66,7 @@ function Homepage() {
 
     return (
         <div >
-            test
+            
             <nav className="navbar navbar-expand-lg bg-primary">
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
