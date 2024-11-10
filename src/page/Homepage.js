@@ -60,13 +60,13 @@ function Homepage() {
     const videoRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
 
-    
+
 
 
 
     return (
         <div >
-
+            test
             <nav className="navbar navbar-expand-lg bg-primary">
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
