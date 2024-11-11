@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { Chart } from 'chart.js/auto';
 import { useRef } from 'react';
-import A from '../assets/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4'
+// import A from '../assets/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4'
 import axios from 'axios';
 
 function Homepage() {
@@ -92,10 +92,10 @@ function Homepage() {
                     </div>
                     <div className="mt-3">
                         <div>
-                            {/* <video preload="none" ref={videoRef} width="600" controls>
-                                <source src={A} type="video/mp4" />
+                            <video preload="none" ref={videoRef} width="600" controls>
+                                {/* <source src={A} type="video/mp4" /> */}
                                 Your browser does not support the video tag.
-                            </video> */}
+                            </video>
                         </div>
                     </div>
                     <div style={{ textAlign: 'center' }}>
