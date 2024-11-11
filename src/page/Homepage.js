@@ -66,7 +66,6 @@ function Homepage() {
 
     return (
         <div >
-            
             <nav className="navbar navbar-expand-lg bg-primary">
                 <div className="container-fluid">
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -93,10 +92,10 @@ function Homepage() {
                     </div>
                     <div className="mt-3">
                         <div>
-                            <video preload="none" ref={videoRef} width="600" controls>
+                            {/* <video preload="none" ref={videoRef} width="600" controls>
                                 <source src={A} type="video/mp4" />
                                 Your browser does not support the video tag.
-                            </video>
+                            </video> */}
                         </div>
                     </div>
                     <div style={{ textAlign: 'center' }}>
