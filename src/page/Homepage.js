@@ -15,6 +15,7 @@ function Homepage() {
     const [filterData, setFilterData] = useState([])
     const [date, setDate] = useState('2021-11-17')
     const chartRef = useRef(null);
+    const [videoSrc,setVideoSrc]=useState('');
 
 
     const handleDateChange = (e) => {
@@ -27,14 +28,28 @@ function Homepage() {
         const fetchData = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:5000/api/footfall/${date}`);
+                setFilterData(response.data.footfall);
+                
+            } catch (error) {
+                alert('目前有錯誤發生 可能是你所選取的日期沒有資料或是其他原因');
+                console.log(error);
+            }
+        }
+        const fetchData2 = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:5000/api/footfall`);
                 console.log(response);
                 setFilterData(response.data.footfall);
+                console.log(response.data.data['/api/assets/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4']);
+                setVideoSrc('/api/assets/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4')
+                
             } catch (error) {
                 alert('目前有錯誤發生 可能是你所選取的日期沒有資料或是其他原因');
                 console.log(error);
             }
         }
         fetchData();
+        fetchData2();
     }, [date])
 
     useEffect(() => {
@@ -93,7 +108,7 @@ function Homepage() {
                     <div className="mt-3">
                         <div>
                             <video preload="none" ref={videoRef} width="600" controls>
-                                {/* <source src={A} type="video/mp4" /> */}
+                                <source src='https://wuyiulin.com/wp-content/uploads/2024/11/birds.mp4' type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         </div>
