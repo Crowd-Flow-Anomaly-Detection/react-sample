@@ -15,7 +15,7 @@ function Homepage() {
     const [filterData, setFilterData] = useState([])
     const [date, setDate] = useState('2021-11-17')
     const chartRef = useRef(null);
-    const [videoSrc,setVideoSrc]=useState('');
+    const [videoSrc, setVideoSrc] = useState('');
 
 
     const handleDateChange = (e) => {
@@ -24,56 +24,76 @@ function Homepage() {
         setDate(momentTime);
 
     }
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:5000/api/footfall/${date}`);
-                setFilterData(response.data.footfall);
-                
-            } catch (error) {
-                alert('目前有錯誤發生 可能是你所選取的日期沒有資料或是其他原因');
-                console.log(error);
-            }
-        }
-        const fetchData2 = async () => {
-            try {
-                const response = await axios.get(`http://127.0.0.1:5000/api/footfall`);
-                console.log(response);
-                setFilterData(response.data.footfall);
-                console.log(response.data.data['/api/assets/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4']);
-                setVideoSrc('/api/assets/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4')
-                
-            } catch (error) {
-                alert('目前有錯誤發生 可能是你所選取的日期沒有資料或是其他原因');
-                console.log(error);
-            }
-        }
-        fetchData();
-        fetchData2();
-    }, [date])
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get(`http://127.0.0.1:5000/api/footfall/${date}`);
+    //             setFilterData(response.data.footfall);
 
-    useEffect(() => {
+    //         } catch (error) {
+    //             alert('目前有錯誤發生 可能是你所選取的日期沒有資料或是其他原因');
+    //             console.log(error);
+    //         }
+    //     }
+    //     const fetchData2 = async () => {
+    //         try {
+    //             const response = await axios.get(`http://127.0.0.1:5000/api/footfall`);
+    //             console.log(response);
+    //             setFilterData(response.data.footfall);
+    //             console.log(response.data.data['/api/assets/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4']);
+    //             setVideoSrc('/api/assets/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0.mp4')
 
-        const chartInstance = new Chart(chartRef.current, {
-            type: 'line',
-            data: {
-                labels: filterData?.map((row, i) => i),
-                datasets: [
-                    {
-                        label: '每小時人數',
-                        data: filterData?.map(row => row),
-                    },
-                ],
-            },
-        });
+    //         } catch (error) {
+    //             alert('目前有錯誤發生 可能是你所選取的日期沒有資料或是其他原因');
+    //             console.log(error);
+    //         }
+    //     }
+    //     fetchData();
+    //     fetchData2();
+    // }, [date])
 
-        return () => {
-            chartInstance.destroy(); // 清理以避免內存洩漏
-        };
-    }, [filterData]);
+    // useEffect(() => {
+
+    //     const chartInstance = new Chart(chartRef.current, {
+    //         type: 'line',
+    //         data: {
+    //             labels: filterData?.map((row, i) => i),
+    //             datasets: [
+    //                 {
+    //                     label: '每小時人數',
+    //                     data: filterData?.map(row => row),
+    //                 },
+    //             ],
+    //         },
+    //     });
+
+    //     return () => {
+    //         chartInstance.destroy(); // 清理以避免內存洩漏
+    //     };
+    // }, [filterData]);
 
     const videoRef = useRef(null);
     const [isPlaying, setIsPlaying] = useState(false);
+
+
+    // 當用戶選擇檔案時觸發
+
+    useEffect(() => {
+        const fileInput = document.getElementById('fileInput');
+        const videoElement = document.getElementById('videoElement');
+        fileInput.addEventListener('change', (e) => {
+            console.log(e.target.files[0]);
+            const file = e.target.files[0];
+            if (file) {
+                // 使用 FileReader 來讀取檔案
+                const fileURL = URL.createObjectURL(file);  // 創建檔案的 URL
+                videoElement.src = fileURL;  // 設定為 video 元素的來源
+            }
+        });
+
+
+    }, [])
+
 
 
 
@@ -107,7 +127,10 @@ function Homepage() {
                     </div>
                     <div className="mt-3">
                         <div>
-                            <video preload="none" ref={videoRef} width="600" controls>
+                            <input type="file" id="fileInput" />
+                            <video
+                                id='videoElement'
+                                preload="none" ref={videoRef} width="600" controls>
                                 <source src='https://wuyiulin.com/wp-content/uploads/2024/11/birds.mp4' type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
