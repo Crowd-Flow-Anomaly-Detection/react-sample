@@ -82,16 +82,16 @@ function Homepage() {
         const fileInput = document.getElementById('fileInput');
         const videoElement = document.getElementById('videoElement');
         fileInput.addEventListener('change', (e) => {
-            console.log(e.target.files[0]);
-            const file = e.target.files[0];
+            const file = e.target.files[0];// 選擇檔案後 存在瀏覽器記憶體
+            
+
             if (file) {
-                // 使用 FileReader 來讀取檔案
+                console.log((file));
+                //  使用 URL.createObjectURL 來生成臨時 URL，並將其用於影片預覽 
                 const fileURL = URL.createObjectURL(file);  // 創建檔案的 URL
                 videoElement.src = fileURL;  // 設定為 video 元素的來源
             }
         });
-
-
     }, [])
 
 
@@ -127,7 +127,7 @@ function Homepage() {
                     </div>
                     <div className="mt-3">
                         <div>
-                            <input type="file" id="fileInput" />
+                            <input type="file" id="fileInput" multiple />
                             <video
                                 id='videoElement'
                                 preload="none" ref={videoRef} width="600" controls>
