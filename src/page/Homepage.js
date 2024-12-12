@@ -118,7 +118,7 @@ function Homepage() {
                     flexDirection: 'column',
                     alignItems: 'center'
                 }}>
-                    <DatePicker selected={startDate} onChange={(e) => handleDateChange(e)} />
+                    {/* <DatePicker selected={startDate} onChange={(e) => handleDateChange(e)} /> */}
                     <div style={{ width: "800px" }}>
                         <canvas
                             ref={chartRef}
@@ -136,7 +136,7 @@ function Homepage() {
                             </video>
                         </div>
                     </div>
-                    <div style={{ textAlign: 'center' }}>
+                    {/* <div style={{ textAlign: 'center' }}>
                         <div style={{
                             border: 'solid', height: '200px', backgroundColor: 'lightgray',
                             margin: '0 ',
@@ -145,7 +145,7 @@ function Homepage() {
                         }} >
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia qui porro quos voluptates, modi, deserunt dignissimos itaque alias doloremque dicta ab? Consectetur incidunt modi ipsa magni, pariatur fugit rerum expedita?
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
