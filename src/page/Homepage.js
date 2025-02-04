@@ -16,6 +16,8 @@ function Homepage() {
     const [date, setDate] = useState('2021-11-17')
     const chartRef = useRef(null);
     const [videoSrc, setVideoSrc] = useState('');
+    const [file, setFile] = useState(null);
+    const [downloadURL, setDownloadURL] = useState(null);
 
 
     const handleDateChange = (e) => {
@@ -78,23 +80,53 @@ function Homepage() {
 
     // 當用戶選擇檔案時觸發
 
-    useEffect(() => {
-        const fileInput = document.getElementById('fileInput');
-        const videoElement = document.getElementById('videoElement');
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];// 選擇檔案後 存在瀏覽器記憶體
-            
+    // useEffect(() => {
+    //     const flie = document.getElementById('fileInput');
+    //     flie.addEventListener('change', (e) => {
+    //         const file = e.target.files[0];// 選擇檔案後 存在瀏覽器記憶體
+    //         setFile(file);
+    //         const formData = new FormData();
+    //         formData.append('video', file, file.name);
+    //     });
+    // }, [])
 
-            if (file) {
-                console.log((file));
-                //  使用 URL.createObjectURL 來生成臨時 URL，並將其用於影片預覽 
-                const fileURL = URL.createObjectURL(file);  // 創建檔案的 URL
-                videoElement.src = fileURL;  // 設定為 video 元素的來源
-            }
-        });
-    }, [])
+    // const downloadVideo = () => {
+    //     const link = document.createElement('a');
+    //     link.href = downloadURL;
+    //     link.download = file.name;
+    //     link.click();
+    // }
 
+    // const video = document.getElementById('videoElement');
 
+    // if (file) {
+    //     //  使用 URL.createObjectURL 來生成臨時 URL，並將其用於影片預覽 
+    //     const uploadURL = URL.createObjectURL(file);  // 創建檔案的 URL
+    //     video.src = uploadURL;  // 設定為 video 元素的來源
+
+    //     setDownloadURL(uploadURL);
+
+    // }
+    const handleFileUpload = async (event) => {
+        const file = event.target.files[0]; // 選取的檔案
+        console.log(file);
+
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append("video", file); // 將影片檔案加入 FormData 中
+
+        try {
+            const response = await axios.post("http://localhost/api/test.php", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data", // 必須使用 multipart/form-data
+                },
+            });
+            console.log("上傳成功:", response.data);
+        } catch (error) {
+            console.error("上傳失敗:", error);
+        }
+    };
 
 
 
@@ -127,11 +159,21 @@ function Homepage() {
                     </div>
                     <div className="mt-3">
                         <div>
-                            <input type="file" id="fileInput" multiple />
+                            <div>請選擇要上傳的影片</div>
+                            <div className='mt-5'>
+                                <input type="file" accept="video/*" onChange={handleFileUpload} />
+                            </div>
+                            {/* <button type='button'
+                                onClick={downloadVideo}
+                            >下載請按我</button> */}
+                            <br />
                             <video
+                                style={{
+                                    marginTop: '200px'
+                                }}
                                 id='videoElement'
                                 preload="none" ref={videoRef} width="600" controls>
-                                <source src='https://wuyiulin.com/wp-content/uploads/2024/11/birds.mp4' type="video/mp4" />
+                                <source src='' type="video/mp4" />
                                 Your browser does not support the video tag.
                             </video>
                         </div>
