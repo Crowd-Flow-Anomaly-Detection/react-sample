@@ -15,7 +15,7 @@ function Homepage() {
 
     try {
       const response = await axios.post(
-        "http://localhost/api/test.php",
+        "https://web-and-yolo.onrender.com/api/upload_video",
         formData,
         {
           headers: {
