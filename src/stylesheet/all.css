@@ -1,3 +1,116 @@
-a:hover{
-    background-color: lightblue;
+a:hover {
+  background-color: lightblue;
+}
+.main {
+  padding: 64px 0;
+  width: 1000px;
+  margin: 0 auto;
+}
+.describe {
+  line-height: 150%;
+}
+.video-box {
+  width: 500px;
+  margin: 0 auto;
+}
+.video {
+  width: 100%;
+}
+.upload-zone {
+  width: 500px;
+  margin: 200px auto 0;
+  background: gray;
+  cursor: pointer;
+}
+.bi-cloud-upload {
+  font-size: 100px;
+}
+.wrapper {
+  gap: 10px;
+}
+.wrapper video {
+  opacity: 0.5;
+  width: 100%;
+  cursor: pointer;
+}
+.wrapper img {
+  opacity: 0.5;
+  width: 100%;
+  cursor: pointer;
+}
+.wrapper video:hover {
+  opacity: 1;
+}
+.wrapper video:checked {
+  opacity: 1;
+}
+
+.spinner-border {
+  width: 100px;
+  height: 100px;
+}
+.hint {
+  height: 200px;
+}
+.return-video {
+  width: 500px;
+  height: 296px;
+  margin-top: 100px;
+}
+.footfall {
+  margin: 0 16px;
+}
+.upload-btn {
+  width: 200px;
+}
+ul {
+  list-style: none;
+  padding: 0;
+}
+input[type="radio"] {
+  display: none;
+}
+.video-option input:checked + img {
+  opacity: 1;
+}
+.cover {
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  /* background: #000; */
+  z-index: 100;
+}
+.bi-play-circle-fill {
+  font-size: 100px;
+}
+.video-option {
+  cursor: pointer;
+}
+.bi-chevron-left,
+.bi-chevron-right {
+  font-size: 100px;
+  cursor: pointer;
+}
+.bi-chevron-left {
+  top: 30px;
+  margin-left: -100px;
+}
+.bi-chevron-right {
+  top: 30px;
+  right: 0;
+  margin-right: -100px;
+}
+.selected {
+  opacity: 1 !important;
+}
+
+.error {
+  width: 500px;
+  padding: 50px 0;
+  margin: 200px auto 0;
+}
+.bi-x-lg {
+  font-size: 100px;
+  color: red;
 }
