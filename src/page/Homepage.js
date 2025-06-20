@@ -4,24 +4,35 @@ import axios from "axios";
 
 // 本地資源
 import testVideo from "../test-video/output_fixed.mp4";
-import testVideo2 from "../test-video/offline-video_9ff1a430b8d1fb095a75666ce8bc22e0_20250504_221149.mp4";
+import testVideo2 from "../test-video/test2.mp4";
 import testImg from "../img/截圖 2025-06-14 上午1.26.28.png";
-import catVideo from "../test-video/貓貓搖搖.mp4";
+import testVideo3 from "../test-video/test3.mp4";
 
 function Homepage() {
-  
+  // const API_BASE = "http://127.0.0.1:5000";
+  const videoArr = [testVideo, testVideo2, testVideo3];
 
-
+  // ─── UI state ──────────────────────────────────────────────────────────────
   const videoRef = useRef(null);
   const [video_url, setVideo_url] = useState("");
   const [uploaded, setUploaded] = useState(false);
   const [getVideo, setGetVideo] = useState(false);
   const [footfall, setFotfall] = useState(0);
-  const videoArr = [testVideo, testVideo2, catVideo];
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(1);
   const [error, setError] = useState(null);
+  const [local, setLocal] = useState(true);
+  const [processing, setProcessing] = useState(false);
+
+  const reset = () => {
+    setGetVideo(false);
+    setUploaded(false);
+  };
 
   const upload = async (file) => {
+    if (processing) {
+      return;
+    }
+    setProcessing(true);
     setGetVideo(false);
     console.log(file);
     const formData = new FormData();
@@ -45,19 +56,78 @@ function Homepage() {
         `https://flow-python.onrender.com${response.data.download_url}`
       );
       setGetVideo(true);
+      setProcessing(false);
     } catch (error) {
       setGetVideo(true);
       setError(true);
       console.error("上傳失敗:", error);
-      // reset();
+      setProcessing(false);
     }
   };
+
+  // ─── Event handlers ────────────────────────────────────────────────────────
   const handleFileUpload = async (event) => {
+    setLocal(false);
     const file = event.target.files[0]; // 選取的檔案
     if (!file) return;
     upload(file);
   };
 
+  const hadleDrag = (e) => {
+    e.preventDefault();
+    setLocal(false);
+    const file = e.dataTransfer.files[0];
+    console.log(file);
+    upload(file);
+  };
+
+  const handleClick = async (i) => {
+    reset();
+    setUploaded(true);
+    setSelected(i);
+    try {
+      const response = await fetch(videoArr[0]);
+      const blob = await response.blob();
+      const file = new File([blob], "video.mp4", {
+        type: blob.type,
+        lastModified: Date.now(),
+      });
+      upload(file);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const nextVideo = () => {
+    if (processing) {
+      return;
+    }
+    if (selected < 2) {
+      setSelected((prev) => {
+        handleClick(prev + 1);
+        return prev + 1;
+      });
+    } else {
+      setSelected(0);
+      handleClick(0);
+    }
+  };
+  const lastVideo = () => {
+    if (processing) {
+      return;
+    }
+    if (selected > 0) {
+      setSelected((prev) => {
+        handleClick(prev - 1);
+        return prev - 1;
+      });
+    } else {
+      setSelected(2);
+      handleClick(2);
+    }
+  };
+
+  // 阻擋瀏覽器預設行為
   useEffect(() => {
     const preventDefaults = (e) => {
       e.preventDefault();
@@ -72,44 +142,6 @@ function Homepage() {
       });
     };
   }, []);
-  const hadleDrag = (e) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files[0];
-    upload(file);
-  };
-
-  const handleClick = (i) => {
-    setGetVideo(true);
-    setSelected(i);
-    setVideo_url(videoArr[i]);
-  };
-
-  const nextVideo = () => {
-    if (selected < 2) {
-      setSelected((prev) => {
-        handleClick(prev + 1);
-        return prev + 1;
-      });
-    } else {
-      setSelected(0);
-      handleClick(0);
-    }
-  };
-  const lastVideo = () => {
-    if (selected > 0) {
-      setSelected((prev) => {
-        handleClick(prev - 1);
-        return prev - 1;
-      });
-    } else {
-      setSelected(2);
-      handleClick(2);
-    }
-  };
-  const reset = () => {
-    setGetVideo(false);
-    setUploaded(false);
-  };
 
   return (
     <div>
@@ -142,7 +174,7 @@ function Homepage() {
               </p>
               <div className="mt-5 text-center">
                 {!getVideo ? (
-                  <div
+                  <div // stage 1
                     className="upload-zone  text-center p-5 text-white"
                     onDrop={hadleDrag}
                   >
@@ -152,6 +184,7 @@ function Homepage() {
                         <p>將你要上傳的影片檔案拖曳到這裡</p>
                       </div>
                     ) : (
+                      // stage 2
                       <div className="hint">
                         <div className="spinner-border mt-3" role="status">
                           <span className="visually-hidden">Loading...</span>
@@ -163,13 +196,13 @@ function Homepage() {
                 ) : (
                   <div>
                     {!error ? (
-                      <video
+                      <video // stage 3
                         ref={videoRef}
                         className="return-video"
                         src={video_url}
                         controls
                       ></video>
-                    ) : (
+                    ) : ( // stage 4
                       <div className="error bg-light">
                         <i className="bi bi-x-lg"></i>
                         <p>出現錯誤 請再試一次</p>
@@ -202,24 +235,35 @@ function Homepage() {
               </div>
 
               {!uploaded ? (
+                <div className="text-center">
+                  <input
+                    className="upload-btn mt-5 "
+                    type="file"
+                    accept="video/*"
+                    onChange={handleFileUpload}
+                  />
+                </div>
+              ) : (
+                <></>
+              )}
+
+              {uploaded && !local ? (
+                <></>
+              ) : (
                 <>
-                  <div className="text-center">
-                    <input
-                      className="upload-btn mt-5 "
-                      type="file"
-                      accept="video/*"
-                      onChange={handleFileUpload}
-                    />
-                  </div>
                   <div className="carousel ">
                     <h3 className="mt-5">或使用現有影片：</h3>
                     <ul className="wrapper d-flex justify-content-between mt-5 position-relative">
                       <i
-                        className="bi bi-chevron-left position-absolute"
+                        className={`bi bi-chevron-left position-absolute ${
+                          processing ? "stop" : ""
+                        }`}
                         onClick={lastVideo}
                       ></i>
                       <i
-                        className="bi bi-chevron-right position-absolute"
+                        className={`bi bi-chevron-right position-absolute ${
+                          processing ? "stop" : ""
+                        }`}
                         onClick={nextVideo}
                       ></i>
                       {videoArr.map((_, i) => {
@@ -243,8 +287,6 @@ function Homepage() {
                     </ul>
                   </div>
                 </>
-              ) : (
-                <></>
               )}
             </div>
           </div>

@@ -114,3 +114,7 @@ input[type="radio"] {
   font-size: 100px;
   color: red;
 }
+.stop {
+  color: gray;
+  cursor: auto;
+}
