@@ -1,17 +1,23 @@
 {
   "files": {
-    "main.css": "/react-sample/static/css/main.9f6a0481.css",
-    "main.js": "/react-sample/static/js/main.647b39e8.js",
+    "main.css": "/react-sample/static/css/main.383ac4d6.css",
+    "main.js": "/react-sample/static/js/main.f42529ff.js",
     "static/js/453.58b5bc9a.chunk.js": "/react-sample/static/js/453.58b5bc9a.chunk.js",
+    "static/media/test3.mp4": "/react-sample/static/media/test3.65f5941483c04fe63ae4.mp4",
+    "static/media/img1.png": "/react-sample/static/media/img1.df2ff9ebd486e5c9ee19.png",
+    "static/media/img3.png": "/react-sample/static/media/img3.ef78adf56232f3f0b2eb.png",
+    "static/media/output_fixed.mp4": "/react-sample/static/media/output_fixed.9d190cd54f7fed25ee5e.mp4",
+    "static/media/img2.png": "/react-sample/static/media/img2.1ee8c900350bf6ec867e.png",
+    "static/media/test2.mp4": "/react-sample/static/media/test2.0b12278e87f9ec431486.mp4",
     "static/media/bootstrap-icons.woff?": "/react-sample/static/media/bootstrap-icons.39795c0b4513de014cf8.woff",
     "static/media/bootstrap-icons.woff2?": "/react-sample/static/media/bootstrap-icons.b7bcc075b395c14ce8c2.woff2",
     "index.html": "/react-sample/index.html",
-    "main.9f6a0481.css.map": "/react-sample/static/css/main.9f6a0481.css.map",
-    "main.647b39e8.js.map": "/react-sample/static/js/main.647b39e8.js.map",
+    "main.383ac4d6.css.map": "/react-sample/static/css/main.383ac4d6.css.map",
+    "main.f42529ff.js.map": "/react-sample/static/js/main.f42529ff.js.map",
     "453.58b5bc9a.chunk.js.map": "/react-sample/static/js/453.58b5bc9a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.9f6a0481.css",
-    "static/js/main.647b39e8.js"
+    "static/css/main.383ac4d6.css",
+    "static/js/main.f42529ff.js"
   ]
 }
