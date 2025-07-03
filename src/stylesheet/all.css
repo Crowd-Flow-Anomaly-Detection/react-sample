@@ -93,11 +93,12 @@ input[type="radio"] {
   cursor: pointer;
 }
 .bi-chevron-left {
-  top: 30px;
+  top: 100px;
+  left: 0;
   margin-left: -100px;
 }
 .bi-chevron-right {
-  top: 30px;
+  top: 100px;
   right: 0;
   margin-right: -100px;
 }
@@ -114,7 +115,10 @@ input[type="radio"] {
   font-size: 100px;
   color: red;
 }
-.stop {
+.disabled {
   color: gray;
   cursor: auto;
+}
+.testImg{
+  height: 200px ;
 }
